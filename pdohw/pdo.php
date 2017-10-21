@@ -8,11 +8,17 @@ try {
 	    $username, $password);
 	    echo "Connected successfully <br>";
 	    $sql = "SELECT id, email FROM accounts WHERE id < 6";
+	 	
 	    $q = $conn->prepare($sql);
 	    $q->execute();
 	    $results = $q->fetchAll();
+
+	  
+	    echo "The total result is ".count($results)."<br>";
+	    
+
 	    if($q->rowCount()){
-	    	echo "<table border=\"1\"><tr><th>Record</th><th>Email</th></tr><br>";
+	    	echo "<table border=\"1\"><tr><th>ID</th><th>Email</th></tr><br>";
 	    	foreach ($results as $row) {
         		echo "<tr><td>".$row["id"]."</td><td>".$row["email"]."</td></tr>";
     		}
