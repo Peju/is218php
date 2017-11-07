@@ -10,7 +10,7 @@ class User{
 	var $conn;
 	function __construct($hostname,$username,$password){
 		try{
-			$conn = new PDO("mysql:host=$hostname;dbname=pjj5",
+			$this->conn = new PDO("mysql:host=$hostname;dbname=pjj5",
 		    $username, $password);
 		    echo "Connected successfully <br>";
 		}
@@ -26,7 +26,7 @@ class User{
 		
 		$sql = "SELECT * FROM accounts";
     	
-    	$q = $conn->prepare($sql);
+    	$q = $this->conn->prepare($sql);
 		$q->execute();
 		$results = $q->fetchAll();
 
@@ -37,7 +37,7 @@ class User{
  	 function insertSQL(){
  	 	$sql =  "INSERT INTO accounts VALUES(19, 'pjough17@njit.edu', 'Peter', 'Jough', '917-101-0001', '1998-07-07', 'male', '17171')";
 
- 	 	$q = $conn->prepare($sql);
+ 	 	$q = $this->conn->prepare($sql);
 		$q->execute();
 		$results = $q->fetchAll();
 
@@ -49,7 +49,7 @@ class User{
 	function deleteSQL(){
     	$sql = "DELETE FROM accounts WHERE id = 14";
 
-	    $q = $conn->prepare($sql);
+	    $q = $this->conn->prepare($sql);
 		$q->execute();
 		$results = $q->fetchAll();
 
@@ -57,10 +57,10 @@ class User{
     }
 
     //update a user’s password in table
-	function updateSQ(){
+	function updateSQL(){
 		$sql = "UPDATE accounts SET password = '123456' WHERE id = 13";
 		
-		$q = $conn->prepare($sql);
+		$q = $this->conn->prepare($sql);
 		$q->execute();
 		$results = $q->fetchAll();
 
@@ -72,12 +72,17 @@ class User{
 
 
 $db = new User($hostname,$username,$password);
-$res = $db->displaySQL();
-echo count($res);
+$dbb = $db->displaySQL();
+echo count($dbb)."<br>";
+
+$inql = $db->insertSQL();
+echo count($inql)."<br>";
+$delp = $db->deleteSQL();
+echo count($delp)."<br>";
+$upp = $db->updateSQL();
+echo count($upp)."<br>";
 
 
-
-
-
+echo "<table border=\"2\"><tr><th>Command</th><th>Result</th></tr><br>";
 
 ?>
